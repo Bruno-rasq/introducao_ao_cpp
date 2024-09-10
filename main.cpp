@@ -135,39 +135,18 @@ int main() {
                 cout << "Digite a substring: " << endl;
                 cin >> substring;
                 
-                int tamanho_da_subtring = substring.size();
-
-                //iterando sobre cada palavra da lista.
-                for(int i = 0; i<lista.size(); i++){
-                    
-                    string palavra = lista[i]; // palavra da vez.
-                    bool encontrou = false; // indica se a palavra contem a substring.
-
-                    //itero sobre cada caracter da palavra menos o tamanho da substring.
-                    for(int j = 0; j<=palavra.length() - tamanho_da_subtring; j++){
-
-                        /*
-                            para cada caracter da palavra verifique se o tamanho 
-                            é menor que o tamanho da substring & se a proxima caracter
-                            da palavra é igual
-                        */
-                        int contador = 0; 
-                        while(contador < tamanho_da_subtring && palavra[j + contador] == substring[contador]){
-                            contador++;
-                        }
-                        if(contador == tamanho_da_subtring){
-                            encontrou = true;
-                            break;
-                        }
-                    }
-
-                    //verifico se a substring foi encontrada nesta palavra, caso sim deleto.
-                    if(encontrou == true){
+                int i = substring.size() - 1;
+                while (i >= 0){
+                    string curr = lista[i];
+                    size_t pos = curr.find(substring);
+                    if(pos != string::npos){
                         lista.erase(lista.begin() + i);
                     }
+                    i--;
                 }
 
                 break;
+                
             }
                 
             case 0: 
