@@ -32,7 +32,6 @@ int main() {
         {
             case 1:
             {
-                //inserir uma nova palavra na lista.
                 string palavra;
                 cout << "Insira um palavra"<< endl;
                 cin >> palavra;
@@ -43,10 +42,9 @@ int main() {
             
             case 2:
             {
-                //exibindo as palavras da lista.
                 for(int i=0; i<lista.size(); i++)
                 {
-                    cout << i << " -> " << lista[i] << endl;
+                    cout << "index[" << i << "] = " << lista[i] << endl;
                 }
                 
                 break;
@@ -54,59 +52,42 @@ int main() {
 
             case 3:
             {
-                /*
-                    encontrando e imprimindo todas os indices e palavras da lista
-                    com base em uma palavra recebida.
-                */
+                
                 string palavra;
+                int ocorrencias = 0;
                 
                 cout << "Digite a palavra:" << endl;
                 cin >> palavra;
 
-                cout << "ocorrencias encontradas: " << endl;
                 for(int i=0; i<lista.size(); i++){
 
-                    // se a palavra corrente for igual a palavra desejada, exiba.
                     if(lista[i] == palavra){
-                        cout << "Index " << i << " -> " << lista[i] << endl;
+                        cout << "index[" << i << "] = " << lista[i] << endl;
+                        ocorrencias++;
                     }
                 }
+                cout << "ocorrencias encontradas: "  << ocorrencias << endl;
                 
                 break;
             }
 
             case 4: 
             {
-                /*
-                    buscando todas as ocorrencias de palavras da lista
-                    que contenham uma substring recebida.
-                */
                 string substring;
                 
-                cout << "insira a substring: " << endl;
+                cout << "digite a substring: " << endl;
                 cin >> substring;
-                
-                int sublength = substring.length(); // tamanho da substring
 
-                cout << "Ocorrencias da substrig (" << substring << "):" << endl;
-                for(int i= 0; i<lista.size(); i++){
-                    
-                    string palavra = lista[i]; // palavra corrente
-                    bool found = false;
-                    
-                    for(int j = 0; j <= palavra.length() - sublength; j++){
-                        int count = 0;
-                        while(count < sublength && palavra[j + count] == substring[count]){
-                            count++;
-                        }
-                        if(count == sublength){
-                            found = true;
-                            break;
-                        }
+                int i = 0;
+                while(i < lista.size()){
+                    string curr = lista[i];
+                    size_t pos = curr.find(substring);
+
+                    if(pos != string::npos){
+                        cout << curr << endl;
                     }
-                    if(found == true){
-                        cout << palavra << endl;
-                    }
+                    
+                    i++;
                 }
 
                 break;
@@ -114,7 +95,6 @@ int main() {
 
             case 5: 
             {
-                //remove um elemento da lista pelo indice.
                 int index;
                 cout << "insira o indice do elemento que deseja remover: " << endl;
                 cin >> index;
@@ -145,8 +125,7 @@ int main() {
                     i--;
                 }
 
-                break;
-                
+                break; 
             }
                 
             case 0: 
