@@ -1,3 +1,5 @@
+gato
+gato
 carro
 livro
 sol

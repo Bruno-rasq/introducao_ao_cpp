@@ -25,9 +25,26 @@ bool ReadFile(string filename, vector<string>* lista){
 	return false;
 }
 
+void Concatenation(vector<vector<string>>* memoria){
+
+	ofstream file ("trabalho01/concatenation.txt");
+
+	if(file.is_open()){
+		int len = memoria->size();
+		for(int i = 0; i < len; i++){
+			vector<string> vetorCorrente = memoria->at(i);
+			for(string palavra: vetorCorrente){
+				file << palavra << endl;
+			}
+		}
+
+		file.close();
+	}
+}
 
 int main(){
 
+	vector <string> files;
 	vector <vector<string>> memoria;
 
 	while(true){
@@ -64,6 +81,7 @@ int main(){
 					break;
 				}
 
+				files.push_back(filename);
 				memoria.push_back(lista);
 				
 				break;
@@ -90,20 +108,42 @@ int main(){
 			}
 			
 			case 3: {
-				cout << "option choosed 3" << endl;
+				
+				string palavra;
+				cout << "Enter the word to remove duplicates: ";
+				cin >> palavra;
+
+				for(vector<string>& vetorCorrente : memoria){
+					int i = vetorCorrente.size() - 1;
+					bool primeira = true;
+					while(i >= 0){
+						string palavraVetor = vetorCorrente[i];
+						
+						if(palavraVetor == palavra && !primeira)
+							vetorCorrente.erase(vetorCorrente.begin() + i);
+
+						if(palavraVetor == palavra && primeira)
+							primeira = false;
+						
+						i--;
+					}
+				}
+
 				break;
 			}
 			
 			case 4: {
 				cout << "Statistics:" << endl << endl;
 				for(int i=0; i<memoria.size(); i++){
-					cout << "File" << (i + 1) << ".txt has " << memoria[i].size() << " word(s)" << endl;
+					cout << files[i] << ".txt has " << memoria[i].size() << " word(s)" << endl;
 				}
 				break;
 			}
 			
-			case 5: 
-				return 0;  // exit.
+			case 5: {
+				Concatenation(&memoria);
+				return 0;
+			}
 
 			default: 
 				break;
