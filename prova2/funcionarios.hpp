@@ -18,7 +18,7 @@ public:
 
     virtual ~Funcionario() = default;
 
-    virtual float salarioBruto() = 0;
+    virtual float salarioBruto() const = 0;
 
     void setBonus(float b) {
         bonus = b;
@@ -29,19 +29,19 @@ public:
     }
 
     float salarioLiquido() {
-        return salarioBruto() - calcularDescontos();
+        return salario - calcularDescontos();
     }
 
-    float calcularDescontos() {
+    float calcularDescontos() const {
         float sb = salarioBruto();
         if (sb > 20000) {
-            return (35 * vendas) / 100.0f;
+            return (0.35 * vendas);
         } else if (sb > 10000) {
-            return (20 * vendas) / 100.0f;
+            return (0.20 * vendas);
         } else if (sb > 5000) {
-            return (10 * vendas) / 100.0f;
+            return (0.10 * vendas);
         } else {
-            return (5 * vendas) / 100.0f;
+            return (0.05 * vendas);
         }
     }
 
@@ -52,9 +52,9 @@ public:
     string imprimirFolhaPagamento() const {
         ostringstream oss;
         oss << "Funcionário: " << nome
-            << "\nSalário bruto: " << salarioBruto()
-            << "\nDescontos: " << calcularDescontos()
-            << "\nSalário líquido: " << salarioLiquido();
+            << " Salário bruto: " << salarioBruto()
+            << " Descontos: " << calcularDescontos()
+            << " Salário líquido: " << salario;
         return oss.str();
     }
 };
@@ -63,7 +63,7 @@ class Gerente : public Funcionario {
 public:
     Gerente(const string& n, float sb, int d) : Funcionario(n, sb, d) {}
 
-    float salarioBruto() override {
+    float salarioBruto() const override {
         return salariobase + bonus + (dependentes * 500);
     }
 };
@@ -72,7 +72,7 @@ class Crediario : public Funcionario {
 public:
     Crediario(const string& n, float sb, int d) : Funcionario(n, sb, d) {}
 
-    float salarioBruto() override {
+    float salarioBruto() const override {
         return salariobase + bonus + (dependentes * 300);
     }
 };
@@ -82,10 +82,10 @@ public:
     Vendedor(const string& n, float sb, int d) : Funcionario(n, sb, d) {}
 
     float comissao() const {
-        return (vendas * 3) / 100.0f;
+        return vendas * 0.03f;
     }
 
-    float salarioBruto() override {
+    float salarioBruto() const override {
         return salariobase + bonus + comissao() + (dependentes * 300);
     }
 };
