@@ -1,4 +1,4 @@
-#include "funcionario.hpp"
+#include "funcionarios.hpp"
 #include <vector>
 #include <iostream>
 
@@ -27,7 +27,7 @@ int main() {
 		qpessoal.at(i)->calcularSalario();
 
 	for(size_t i = 0; i < qpessoal.size(); i++)
-		qpessoal.at(i)->imprimirFolhaPagamento();
+		cout << qpessoal.at(i)->imprimirFolhaPagamento() << endl;
 
 	for(size_t i = 0; i < qpessoal.size(); i++)
 		delete qpessoal.at(i);
