@@ -55,47 +55,33 @@ struct MINIONATTRIBUTES {
 
 // Base de dados para alimentar os atributos
 struct MINIONDATAATTRIBUTES {
-    inline static const MINION_DATA_ATTRIBUTES Meelee = {
-            100,   // health
-            0.5f,  // health_regen
-            325,   // move_speed
-            125,   // range
-            0,     // armour
-            0,     // magic_resist
-            21,    // gold
-            30,    // EXP
-            30,    // attack_damage
-            0.625f,// attack_speed
-            "AD"   // type_damage
-        };
+    inline static const MINION_DATA_ATTRIBUTES 
+    Meelee = {
+        //Health   //Health_regen   //Move_speed    //range
+        100,       0.5f,            325,            125,
+        //armour   //magic_resist   //gold          //EXP
+        0,         0,               21              30
+        //damage   //atk_speed      //type_damage
+        30,        0.625f,          "AD"
+    },
         
-    inline static const MINION_DATA_ATTRIBUTES Caster = {
-            280,   // health
-            0.5f,  // health_regen
-            325,   // move_speed
-            550,   // range
-            0,     // armour
-            0,     // magic_resist
-            14,    // gold
-            30,    // EXP
-            20,    // attack_damage
-            0.625f,// attack_speed
-            "AP"   // type_damage
-        };
+    Caster = {
+        //Health   //Health_regen   //Move_speed    //range
+        280,       0.5f,            325,            550, 
+        //armour   //magic_resist   //gold          //EXP
+        0,         0,               14,             30,
+        //damage   //atk_speed      //type_damage
+        20,        0.6f,            "AP"
+    },
         
-    inline static const MINION_DATA_ATTRIBUTES Super = {
-            1000,  // health
-            1.0f,  // health_regen
-            500,   // move_speed
-            125,   // range
-            0,     // armour
-            0,     // magic_resist
-            50,    // gold
-            60,    // EXP
-            40,    // attack_damage
-            0.625f,// attack_speed
-            "AD"   // type_damage
-        };
+    Super = {
+        //Health   //Health_regen   //Move_speed    //range
+        1000,      1.0f,            500,            125,
+        //armour   //magic_resist   //gold          //EXP
+        0,         0,               50,             60,
+        //damage   //atk_speed      //type_damage
+        40,        0.6f,            "AD"
+    };
 };
 
 // Classe base Minion
@@ -185,7 +171,7 @@ public:
 };
 
 // Funções para gerenciar os times
-void createTeam(MINION_TEAM& team, const string& t) {
+void createWave(MINION_TEAM& team, const string& t) {
     team.push_back(new MeeleeMinion(t));
     team.push_back(new MeeleeMinion(t));
     team.push_back(new MeeleeMinion(t));
@@ -202,10 +188,11 @@ void clearTeam(MINION_TEAM& team) {
 }
 
 int main() {
+    
     MINION_TEAM Blue, Red;
     
-    createTeam(Blue, MINION_TEAM_BLUE);
-    createTeam(Red, MINION_TEAM_RED);
+    createWave(Blue, MINION_TEAM_BLUE);
+    createWave(Red,  MINION_TEAM_RED);
     
     cout << "Team BLUE:" << endl;
     for (auto& minion : Blue) {
